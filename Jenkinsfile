@@ -11,7 +11,7 @@ node {
         /* Build the docker image with the 
          * respective name */
 
-        app = docker.build("localhost:8087/docker-local/rodrigocmn/docker-activemq:latest")
+        app = docker.build("artifactory:8087/docker-local/rodrigocmn/docker-activemq:latest")
     }
 
     stage('Push image') {
@@ -19,7 +19,7 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('http://localhost:8087', 'jenkins-artifactory-credentials') {
+        docker.withRegistry('http://artifactory:8087', 'jenkins-artifactory-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
