@@ -24,7 +24,9 @@ pipeline {
             /* Build the docker image with the 
             * respective name */
             steps {
-                app = docker.build("${params.artifactoryUrl}/docker-local/rodrigocmn/docker-activemq:latest")
+                script{
+                    app = docker.build("${params.artifactoryUrl}/docker-local/rodrigocmn/docker-activemq:latest")
+                }
             }
             
         }
@@ -36,9 +38,11 @@ pipeline {
             * Pushing multiple tags is cheap, as all the layers are reused. */
             
             steps{
-                docker.withRegistry("http://${params.artifactoryUrl}", "jenkins-artifactory-credentials") {
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
+                script{
+                    docker.withRegistry("http://${params.artifactoryUrl}", "jenkins-artifactory-credentials") {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                }
             }
                 
             }
