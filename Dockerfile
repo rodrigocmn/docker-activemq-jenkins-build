@@ -37,7 +37,7 @@ RUN \
     chown -R ${USER}:${GROUP} /data &&\
     chown -R ${USER}:${GROUP} /var/log/activemq
 
-# Expose all port
+# Expose all ActiveMQ ports
 EXPOSE 8161:8161
 EXPOSE 61616:61616
 EXPOSE 5672:5672
@@ -45,6 +45,11 @@ EXPOSE 61613:61613
 EXPOSE 1883:1883
 EXPOSE 61614:61614
 
+# Map volumes
 VOLUME ["/data", "/var/log/activemq"]
+
+# Set working folder
 WORKDIR ${APP_HOME}
+
+# Start ActiveMQ in console mode
 CMD ["/bin/sh", "-c", "bin/activemq console"]
