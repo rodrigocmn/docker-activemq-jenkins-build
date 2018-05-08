@@ -1,9 +1,12 @@
 pipeline {
   agent any
   parameters {
-    string(name: 'artifactoryUrl', 
-    defaultValue: 'artifactory:8087', 
-    description: 'Artifactory repository URL (server:port).')
+    string( name: 'artifactoryUrl', 
+            defaultValue: 'artifactory:8087', 
+            description: 'Artifactory repository URL (server:port).')
+    string( name: 'repositoryPath', 
+            defaultValue: 'docker-local/rodrigocmn/docker-activemq/', 
+            description: 'Path to the respository in Artifactory (i.e. docker-local/projectname/docker-app/).')
   }
   stages {
     stage('Clone repository') {
