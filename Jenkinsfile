@@ -24,7 +24,7 @@ pipeline {
     stage('Build image') {
       steps {
         script {
-          app = docker.build('${params.artifactoryUrl}/${params.repositoryPath}:latest')
+          app = docker.build("${params.artifactoryUrl}/${params.repositoryPath}:latest")
         }
 
       }
@@ -32,9 +32,9 @@ pipeline {
     stage('Push image') {
       steps {
         script {
-          docker.withRegistry('http://${params.artifactoryUrl}', '${params.repositoryCredentials}') {
-            app.push('${env.BUILD_NUMBER}')
-            app.push('latest')
+          docker.withRegistry("http://${params.artifactoryUrl}", "${params.repositoryCredentials}") {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
           }
         }
 
