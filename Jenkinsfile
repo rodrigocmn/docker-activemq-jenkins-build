@@ -1,6 +1,8 @@
 pipeline {
     agent none
-    
+    environment {
+        app = ''
+    }
 
     parameters {
         string(name: 'artifactoryUrl', defaultValue: 'artifactory:8087', description: 'Artifactory repository URL (server:port).')
@@ -17,7 +19,7 @@ pipeline {
         stage('Build image') {
             /* Build the docker image with the 
             * respective name */
-            def app
+            
             app = docker.build("${params.artifactoryUrl}/docker-local/rodrigocmn/docker-activemq:latest")
         }
 
@@ -26,7 +28,7 @@ pipeline {
             * First, the incremental build number from Jenkins
             * Second, the 'latest' tag.
             * Pushing multiple tags is cheap, as all the layers are reused. */
-            def app
+            
             docker.withRegistry("http://${params.artifactoryUrl}", "jenkins-artifactory-credentials") {
                 app.push("${env.BUILD_NUMBER}")
                 app.push("latest")
