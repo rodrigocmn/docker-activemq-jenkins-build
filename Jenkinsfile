@@ -12,7 +12,10 @@ pipeline {
             /* Clone repository to our workspace */
             step{
                 checkout scm
-                app = null
+                
+            }
+            step {
+                def app
             }
             
         }
