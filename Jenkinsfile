@@ -1,5 +1,10 @@
 pipeline {
   agent any
+  parameters {
+    string(name: 'artifactoryUrl', 
+    defaultValue: 'artifactory:8087', 
+    description: 'Artifactory repository URL (server:port).')
+  }
   stages {
     stage('Clone repository') {
       steps {
@@ -29,8 +34,5 @@ pipeline {
 
       }
     }
-  }
-  parameters {
-    string(name: 'artifactoryUrl', defaultValue: 'artifactory:8087', description: 'Artifactory repository URL (server:port).')
   }
 }
