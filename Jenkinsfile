@@ -1,6 +1,11 @@
 pipeline {
     agent none
     def app
+
+    parameters {
+        string(name: 'artifactoryUrl', defaultValue: 'artifactory:8087', description: 'Artifactory repository URL (server:port).')
+    }
+
     stages{
         
         stage('Clone repository') {
