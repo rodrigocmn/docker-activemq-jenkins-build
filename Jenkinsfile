@@ -1,11 +1,8 @@
 pipeline {
     agent none
     def app
-
-    parameters {
-        artifactoryUrl(name:'Artifactory Url', description: 'URL for the artifactory repository where the image is going to be stored.')
-    }
     stages{
+        
         stage('Clone repository') {
             /* Clone repository to our workspace */
 
@@ -30,5 +27,4 @@ pipeline {
                 
             }
         }
-    }
 }
