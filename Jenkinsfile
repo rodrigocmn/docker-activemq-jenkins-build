@@ -1,8 +1,6 @@
 pipeline {
-    agent none
-    environment {
-        app = ''
-    }
+    agent any
+    
 
     parameters {
         string(name: 'artifactoryUrl', defaultValue: 'artifactory:8087', description: 'Artifactory repository URL (server:port).')
@@ -14,6 +12,7 @@ pipeline {
             /* Clone repository to our workspace */
 
             checkout scm
+            app = null
         }
 
         stage('Build image') {
