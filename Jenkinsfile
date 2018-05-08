@@ -10,12 +10,15 @@ pipeline {
         
         stage('Clone repository') {
             /* Clone repository to our workspace */
-            step{
+            steps{
                 checkout scm
+                script{
+                    def app
+                }
                 
             }
-            step {
-                def app
+            steps {
+                
             }
             
         }
@@ -23,7 +26,7 @@ pipeline {
         stage('Build image') {
             /* Build the docker image with the 
             * respective name */
-            step {
+            steps {
                 app = docker.build("${params.artifactoryUrl}/docker-local/rodrigocmn/docker-activemq:latest")
             }
             
@@ -35,7 +38,7 @@ pipeline {
             * Second, the 'latest' tag.
             * Pushing multiple tags is cheap, as all the layers are reused. */
             
-            step{
+            steps{
                 docker.withRegistry("http://${params.artifactoryUrl}", "jenkins-artifactory-credentials") {
                 app.push("${env.BUILD_NUMBER}")
                 app.push("latest")
